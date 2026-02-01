@@ -7,7 +7,7 @@ project/
 ├── Project retail orders.ipynb    # Data cleaning & ETL pipeline (Jupyter Notebook)
 ├── project1.sql                   # Analytical SQL queries
 └── README.md                      # This documentation file
-🔍 Data Source
+## 🔍 Data Source
 Dataset: Retail Orders Dataset from Kaggle
 Original Format: ZIP archive containing orders.csv
 Records: 9,994 order transactions
@@ -15,45 +15,31 @@ Time Period: January 2022 - December 2023
 🧹 Data Cleaning & Transformation Process
 The Jupyter Notebook (Project retail orders.ipynb) implements a comprehensive ETL pipeline:
 1. Data Acquisition
-python
-12
+
 # Download dataset from Kaggle
 !kaggle datasets download ankitbansal06/retail-orders -f orders.csv
+
 2. File Format Handling
-Detected that downloaded "CSV" was actually a ZIP archive (identified by PK header signature)
-Extracted actual CSV file from archive using Python's zipfile module
+- Detected that downloaded "CSV" was actually a ZIP archive (identified by PK header signature)
+- Extracted actual CSV file from archive using Python's zipfile module
+
 3. Data Cleaning Steps
-Step
-Action
-Purpose
-Missing Values
-Replaced 'Not Available' and 'unknown' with NaN in Ship Mode
-Standardized missing value representation
-Column Naming
-Converted to lowercase + snake_case (cost price → cost_price)
-Consistent naming convention for SQL compatibility
-New Metrics
-Calculated discount, sale_price, and profit columns
-Enabled revenue/profitability analysis
-Data Types
-Converted order_date to datetime64[ns]
-Enabled time-based analytics
-Column Reduction
-Dropped redundant columns (list_price, cost_price, discount_percent)
-Optimized storage after deriving key metrics
+<img width="805" height="350" alt="Screenshot 2026-02-01 at 22 43 17" src="https://github.com/user-attachments/assets/808dcde6-57a5-420a-be42-4b77d84a0e2b" />
+
+
 4. Final Schema (16 columns)
-123
 order_id, order_date, ship_mode, segment, country, city, state, 
 postal_code, region, category, sub_category, product_id, quantity, 
 discount, sale_price, profit
+
 5. Database Loading
-Transferred cleaned data to PostgreSQL using SQLAlchemy
-Connection parameters configured for local PostgreSQL instance (port 5433)
-Created orders table with to_sql() method (if_exists='replace')
-💡 Key Analytical Queries (project1.sql)
+- Transferred cleaned data to PostgreSQL using SQLAlchemy
+- Connection parameters configured for local PostgreSQL instance (port 5433)
+- Created orders table with to_sql() method (if_exists='replace')
+
+## 💡 Key Analytical Queries (project1.sql)
 1. Schema Optimization
-sql
-123
+
 -- Convert order_date from timestamp to date type
 ALTER TABLE orders 
 ALTER COLUMN order_date TYPE DATE USING order_date::DATE;
