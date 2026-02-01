@@ -41,8 +41,9 @@ discount, sale_price, profit
 1. Schema Optimization
 
 -- Convert order_date from timestamp to date type
-ALTER TABLE orders 
-ALTER COLUMN order_date TYPE DATE USING order_date::DATE;
+-- ALTER TABLE orders 
+-- ALTER COLUMN order_date TYPE DATE USING order_date::DATE;
+
 2. Top Revenue Generators
 sql
 123456
