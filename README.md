@@ -21,7 +21,7 @@ The Jupyter Notebook (Project retail orders.ipynb) implements a comprehensive ET
 
 1. Data Acquisition
 
-# Download dataset from Kaggle
+Download dataset from Kaggle: 
 !kaggle datasets download ankitbansal06/retail-orders -f orders.csv
 
 2. File Format Handling
