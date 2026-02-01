@@ -10,8 +10,11 @@ project/
 
 ## 🔍 Data Source
 a. Dataset: Retail Orders Dataset from Kaggle
+
 b. Original Format: ZIP archive containing orders.csv
+
 c. Records: 9,994 order transactions
+
 d. Time Period: January 2022 - December 2023
 
 ## 🧹 Data Cleaning & Transformation Process
@@ -24,6 +27,7 @@ The Jupyter Notebook (Project retail orders.ipynb) implements a comprehensive ET
 
 2. File Format Handling
 - Detected that downloaded "CSV" was actually a ZIP archive (identified by PK header signature)
+
 - Extracted actual CSV file from archive using Python's zipfile module
 
 3. Data Cleaning Steps
@@ -34,14 +38,16 @@ order_id, order_date, ship_mode, segment, country, city, state, postal_code, reg
 
 5. Database Loading
 a. Transferred cleaned data to PostgreSQL using SQLAlchemy
+
 b. Connection parameters configured for local PostgreSQL instance (port 5433)
+
 c. Created orders table with to_sql() method (if_exists='replace')
 
 ## 💡 Key Analytical Queries (project1.sql)
-A. Schema Optimization
+1. Schema Optimization
 <img width="501" height="137" alt="Screenshot 2026-02-01 at 23 12 53" src="https://github.com/user-attachments/assets/393af200-df5d-4fcf-a142-4659d20c3aea" />
 
-B. Top Revenue Generators
+2. Top Revenue Generators
 <img width="501" height="189" alt="Screenshot 2026-02-01 at 23 13 35" src="https://github.com/user-attachments/assets/a5336d56-4e86-443c-92af-8b28ad9b21d7" />
 
 3. Regional Performance Analysis
@@ -78,16 +84,24 @@ b. Set permissions: chmod 600 ~/.kaggle/kaggle.json
 
 2. Execute ETL Pipeline:
 a. Open Project retail orders.ipynb in Jupyter
+
 b. Run all cells sequentially (handles ZIP extraction → cleaning → DB loading)
+
 
 3. Run Analytics:
 a. Connect to PostgreSQL database using DBeaver/pgAdmin
+
 b. Execute queries from project1.sql for business insights
 
 ## 📈 Key Business Insights Enabled
 a. Identify top-performing products by revenue and region
+
 b. Track YoY sales growth at monthly granularity
+
 c. Discover seasonal patterns per product category
+
 d. Pinpoint high-growth sub-categories for inventory planning
+
 e. Analyze profitability at transaction level (profit = sale_price - cost_price)
+
 f. Regional performance benchmarking for sales strategy optimization
