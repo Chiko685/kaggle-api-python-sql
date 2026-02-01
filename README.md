@@ -38,13 +38,13 @@ discount, sale_price, profit
 - Created orders table with to_sql() method (if_exists='replace')
 
 ## 💡 Key Analytical Queries (project1.sql)
-1. Schema Optimization
+A. Schema Optimization
 
-a. Convert order_date from timestamp to date type
-b. ALTER TABLE orders 
-c. ALTER COLUMN order_date TYPE DATE USING order_date::DATE;
+1. Convert order_date from timestamp to date type
+2. ALTER TABLE orders 
+3. ALTER COLUMN order_date TYPE DATE USING order_date::DATE;
 
-2. Top Revenue Generators
+B. Top Revenue Generators
 sql
 123456
 -- Top 10 highest revenue generating products
