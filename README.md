@@ -7,13 +7,16 @@ project/
 ├── Project retail orders.ipynb    # Data cleaning & ETL pipeline (Jupyter Notebook)
 ├── project1.sql                   # Analytical SQL queries
 └── README.md                      # This documentation file
+
 ## 🔍 Data Source
-Dataset: Retail Orders Dataset from Kaggle
-Original Format: ZIP archive containing orders.csv
-Records: 9,994 order transactions
-Time Period: January 2022 - December 2023
-🧹 Data Cleaning & Transformation Process
+a. Dataset: Retail Orders Dataset from Kaggle
+b. Original Format: ZIP archive containing orders.csv
+c. Records: 9,994 order transactions
+d. Time Period: January 2022 - December 2023
+
+## 🧹 Data Cleaning & Transformation Process
 The Jupyter Notebook (Project retail orders.ipynb) implements a comprehensive ETL pipeline:
+
 1. Data Acquisition
 
 # Download dataset from Kaggle
@@ -26,117 +29,65 @@ The Jupyter Notebook (Project retail orders.ipynb) implements a comprehensive ET
 3. Data Cleaning Steps
 <img width="805" height="350" alt="Screenshot 2026-02-01 at 22 43 17" src="https://github.com/user-attachments/assets/808dcde6-57a5-420a-be42-4b77d84a0e2b" />
 
-
 4. Final Schema (16 columns)
-order_id, order_date, ship_mode, segment, country, city, state, 
-postal_code, region, category, sub_category, product_id, quantity, 
-discount, sale_price, profit
+order_id, order_date, ship_mode, segment, country, city, state, postal_code, region, category, sub_category, product_id, quantity, discount, sale_price, profit
 
 5. Database Loading
-- Transferred cleaned data to PostgreSQL using SQLAlchemy
-- Connection parameters configured for local PostgreSQL instance (port 5433)
-- Created orders table with to_sql() method (if_exists='replace')
+a. Transferred cleaned data to PostgreSQL using SQLAlchemy
+b. Connection parameters configured for local PostgreSQL instance (port 5433)
+c. Created orders table with to_sql() method (if_exists='replace')
 
 ## 💡 Key Analytical Queries (project1.sql)
 A. Schema Optimization
-
-1. Convert order_date from timestamp to date type
-2. ALTER TABLE orders 
-3. ALTER COLUMN order_date TYPE DATE USING order_date::DATE;
+<img width="501" height="137" alt="Screenshot 2026-02-01 at 23 12 53" src="https://github.com/user-attachments/assets/393af200-df5d-4fcf-a142-4659d20c3aea" />
 
 B. Top Revenue Generators
-sql
-123456
--- Top 10 highest revenue generating products
-SELECT product_id, SUM(sale_price::NUMERIC) AS sales
-FROM orders
-GROUP BY product_id
-ORDER BY sales DESC
-LIMIT 10;
+<img width="501" height="189" alt="Screenshot 2026-02-01 at 23 13 35" src="https://github.com/user-attachments/assets/a5336d56-4e86-443c-92af-8b28ad9b21d7" />
+
 3. Regional Performance Analysis
-sql
-1234567891011
--- Top 5 highest-selling products per region using window functions
-WITH rank_region AS (
-  SELECT region, product_id, SUM(sale_price::NUMERIC) AS sales
-  FROM orders
-  GROUP BY region, product_id
-)
-SELECT * FROM (
-  SELECT *, DENSE_RANK() OVER (PARTITION BY region ORDER BY sales DESC) AS ranking
-  FROM rank_region
-) AS sub_rank
+<img width="566" height="300" alt="Screenshot 2026-02-01 at 23 15 11" src="https://github.com/user-attachments/assets/664e789d-bcec-4d01-811f-8f604d1c3629" />
 
 4. Year-over-Year Growth Analysis
-sql
-12345678910111213141516
--- Month-over-month sales comparison: 2022 vs 2023
-WITH cte AS (
-  SELECT 
-    SUM(sale_price::NUMERIC) AS sales,
-    EXTRACT(MONTH FROM order_date) AS month,
-    EXTRACT(YEAR FROM order_date) AS year
-  FROM orders
-  GROUP BY month, year
-)
-SELECT 
+<img width="566" height="355" alt="Screenshot 2026-02-01 at 23 16 22" src="https://github.com/user-attachments/assets/930fe443-c2bf-4c31-9fde-63a4e817d4b9" />
 
 5. Category Performance by Month
-sql
-123456789101112131415
--- Highest sales month for each product category
-WITH category AS (
-  SELECT 
-    category,
-    EXTRACT(MONTH FROM order_date) AS month,
-    SUM(sale_price::NUMERIC) AS sales
-  FROM orders
-  GROUP BY category, month
-)
-SELECT * FROM (
+<img width="566" height="355" alt="Screenshot 2026-02-01 at 23 16 50" src="https://github.com/user-attachments/assets/2270a48f-d7d9-4914-9030-385d84d00a3a" />
 
 6. Growth Analysis
-sql
-12345678910111213141516171819202122
--- Highest growth sub-category (2023 vs 2022)
-WITH sub_category AS (
-  SELECT 
-    sub_category,
-    EXTRACT(YEAR FROM order_date) AS year,
-    SUM(sale_price::NUMERIC) AS sales
-  FROM orders
-  GROUP BY sub_category, year
-),
-cte_2 AS (
+<img width="611" height="418" alt="Screenshot 2026-02-01 at 23 17 55" src="https://github.com/user-attachments/assets/7c207575-88a9-4ce1-92fd-71b5045203c1" />
 
-⚙️ Technical Requirements
-Python Dependencies
-bash
-1
-pip install kaggle pandas sqlalchemy psycopg2-binary pyodbc
-Database Requirements
-PostgreSQL 18.0+ (tested on Postgres.app for macOS)
-Running instance on localhost:5433
-Database: postgres
-Credentials configured in notebook (update before execution):
-python
-12
+
+##⚙️ Technical Requirements
+## Python Dependencies
+
+--pip install kaggle pandas sqlalchemy psycopg2-binary pyodbc
+
+## Database Requirements
+1. PostgreSQL 18.0+ (tested on Postgres.app for macOS)
+2. Running instance on localhost:5433
+3. Database: postgres
+4. Credentials configured in notebook (update before execution):
+
 username = 'postgres'
 password = 'your_password_here'
-🚀 How to Run
-Set up Kaggle API (if downloading dataset):
-Create kaggle.json in ~/.kaggle/ with API credentials
-Set permissions: chmod 600 ~/.kaggle/kaggle.json
-Execute ETL Pipeline:
-Open Project retail orders.ipynb in Jupyter
-Run all cells sequentially (handles ZIP extraction → cleaning → DB loading)
-Run Analytics:
-Connect to PostgreSQL database using DBeaver/pgAdmin
-Execute queries from project1.sql for business insights
-📈 Key Business Insights Enabled
-Identify top-performing products by revenue and region
-Track YoY sales growth at monthly granularity
-Discover seasonal patterns per product category
-Pinpoint high-growth sub-categories for inventory planning
-Analyze profitability at transaction level (profit = sale_price - cost_price)
-Regional performance benchmarking for sales strategy optimization
+
+## 🚀 How to Run
+1. Set up Kaggle API (if downloading dataset):
+a. Create kaggle.json in ~/.kaggle/ with API credentials
+b. Set permissions: chmod 600 ~/.kaggle/kaggle.json
+
+2. Execute ETL Pipeline:
+a. Open Project retail orders.ipynb in Jupyter
+b. Run all cells sequentially (handles ZIP extraction → cleaning → DB loading)
+
+3. Run Analytics:
+a. Connect to PostgreSQL database using DBeaver/pgAdmin
+b. Execute queries from project1.sql for business insights
+
+## 📈 Key Business Insights Enabled
+a. Identify top-performing products by revenue and region
+b. Track YoY sales growth at monthly granularity
+c. Discover seasonal patterns per product category
+d. Pinpoint high-growth sub-categories for inventory planning
+e. Analyze profitability at transaction level (profit = sale_price - cost_price)
+f. Regional performance benchmarking for sales strategy optimization
