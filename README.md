@@ -1,12 +1,10 @@
 Retail Orders Analytics Project
 ## 📊 Project Overview
 This project performs end-to-end data engineering and analytics on a retail orders dataset. It includes data extraction, cleaning, transformation, loading into PostgreSQL, and advanced SQL analytics to uncover business insights about sales performance, regional trends, and product profitability.
-## 🗂️ File Structure
 
-project/
-├── Project retail orders.ipynb    # Data cleaning & ETL pipeline (Jupyter Notebook)
-├── project1.sql                   # Analytical SQL queries
-└── README.md                      # This documentation file
+## 🗂️ File Structure
+<img width="444" height="118" alt="Screenshot 2026-02-02 at 00 19 36" src="https://github.com/user-attachments/assets/d5ef46d7-9685-4290-bb94-290481e043d8" />
+
 
 ## 🔍 Data Source
 a. Dataset: Retail Orders Dataset from Kaggle
@@ -26,6 +24,7 @@ The Jupyter Notebook (Project retail orders.ipynb) implements a comprehensive ET
 !kaggle datasets download ankitbansal06/retail-orders -f orders.csv
 
 2. File Format Handling
+   
 - Detected that downloaded "CSV" was actually a ZIP archive (identified by PK header signature)
 
 - Extracted actual CSV file from archive using Python's zipfile module
