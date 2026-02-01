@@ -40,9 +40,9 @@ discount, sale_price, profit
 ## 💡 Key Analytical Queries (project1.sql)
 1. Schema Optimization
 
--- Convert order_date from timestamp to date type
--- ALTER TABLE orders 
--- ALTER COLUMN order_date TYPE DATE USING order_date::DATE;
+a. Convert order_date from timestamp to date type
+b. ALTER TABLE orders 
+c. ALTER COLUMN order_date TYPE DATE USING order_date::DATE;
 
 2. Top Revenue Generators
 sql
