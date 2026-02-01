@@ -1,4 +1,5 @@
-Retail Orders Analytics Project
+##Retail Orders Analytics Project
+
 ## 📊 Project Overview
 This project performs end-to-end data engineering and analytics on a retail orders dataset. It includes data extraction, cleaning, transformation, loading into PostgreSQL, and advanced SQL analytics to uncover business insights about sales performance, regional trends, and product profitability.
 
