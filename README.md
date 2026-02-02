@@ -3,6 +3,8 @@
 ## 📊 Project Overview
 This project performs end-to-end data engineering and analytics on a retail orders dataset. It includes data extraction, cleaning, transformation, loading into PostgreSQL, and advanced SQL analytics to uncover business insights about sales performance, regional trends, and product profitability.
 
+<img width="581" height="349" alt="Screenshot 2026-02-02 at 15 28 18" src="https://github.com/user-attachments/assets/fa0dc3e0-7ba8-4355-b25f-be088a703466" />
+
 ## 🗂️ File Structure
 <img width="444" height="118" alt="Screenshot 2026-02-02 at 00 19 36" src="https://github.com/user-attachments/assets/d5ef46d7-9685-4290-bb94-290481e043d8" />
 
